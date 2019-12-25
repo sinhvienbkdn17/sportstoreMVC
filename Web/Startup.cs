@@ -35,6 +35,11 @@ namespace Web
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer( Configuration["Data:SportStoreProducts:ConnectionString"]));
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -52,7 +57,7 @@ namespace Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

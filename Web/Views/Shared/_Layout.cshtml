@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web</title>
-
+    <link rel="stylesheet" asp-href-include="~/lib/fontawesome/css/*.css" />
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -13,13 +13,18 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <div class="navbar navbar-inverse bg-inverse" role="navigation">
-        <a class="navbar-brand" href="#">SPORTS STORE</a>
+        <div class="row">
+            <a class="col navbar-brand" href="#">SPORTS STORE</a>
+            <div class="col-4 text-right">
+                @await Component.InvokeAsync("CartSummary")
+            </div>
+        </div>
     </div>
     <div class="row m-1 p-1">
         <div id="categories" class="col-3">
